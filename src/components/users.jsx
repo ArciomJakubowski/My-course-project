@@ -3,7 +3,7 @@ import api from "../api"
 
 const Users = () => {
     const [users, setUsers] = useState(api.users.fetchAll);
-    const handleDelete = (userId) => {setUsers(prevState => prevState.filter(user => user !== userId))}
+    const handleDelete = (userId) => {setUsers(prevState => prevState.filter(user => user._id !== userId))}
     // console.log(users.length);
 
     const renderPhrase = (number) => { 
@@ -16,10 +16,6 @@ const Users = () => {
             classes += users.length === 0 ? 'bg-danger' : 'bg-primary'
             return classes
             }
-
-        if(users.length) {
-            <div>table</div> 
-        }
         
         if(array1.includes(number)) {
             return <h1 className={getBadgeClasses()}>{number} {words[0]} тусанет с тобой сегодня</h1>
@@ -39,10 +35,12 @@ const Users = () => {
     return (<>
     <div>{renderPhrase(users.length)}</div>
 
+    {
+    users.length > 0 && (
+
     <table className="table table-striped">
   <thead>
-  {
-  users.length > 0 &&
+  
     <tr>
         <th scope="col">Имя</th>
         <th scope="col">Качества</th>
@@ -50,7 +48,7 @@ const Users = () => {
         <th scope="col">Встретился, раз</th>
         <th scope="col">Оценка</th>
     </tr>
-    }
+    
   </thead>
   <tbody>
   {
@@ -59,19 +57,20 @@ const Users = () => {
         // console.log(users.length)
         // console.log('qulities', user.qualities.reduce((acc, qulity) => [acc, qulity]))
       return (
-        <tr>
+        <tr key={user._id}>
            <td>{user.name}</td> 
            <td>{user.qualities.reduce((acc, {name, color, _id}) => [acc, <td key = {_id} className={`badge bg-${color} m-2`}>{name}</td> ], [])}</td>
            <td className={user.profession._id}>{user.profession.name}</td> 
            <td>{user.completedMeetings}</td>
            <td>{user.rate}/5</td>
-           <td><button type="button" className = "btn btn-danger" onClick={() => handleDelete(user)}>Delete</button></td>
+           <td><button type="button" className = "btn btn-danger" onClick={() => handleDelete(user._id)}>Delete</button></td>
         </tr>
       ) 
     })
   }
   </tbody>
 </table>
+)}
 </>)
 }
 
