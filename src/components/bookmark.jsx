@@ -1,6 +1,6 @@
 import React from "react";
 
-const BookMark = ({status, ...rest}) => {
+const BookMark = ({status, onToggleBookMark, id}) => {
     
     // console.log("status", ...rest);
     let getBadgeClasses = () => {
@@ -10,7 +10,7 @@ const BookMark = ({status, ...rest}) => {
         }
 
 
-    return  <button type="button" className={getBadgeClasses()}></button>
+    return  <button key = {id} type="button" className={getBadgeClasses()}  onClick={() => onToggleBookMark(id)}></button>
     
 }
 

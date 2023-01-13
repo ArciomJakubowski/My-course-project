@@ -14,7 +14,7 @@ function App () {
       
     }
     const handleToggleBookMark = (id) => {
-        setUsers((prevState) => prevState.map((user) => user._id === id ? [{...user, bookmark: 'true'}] : {...user}))
+        setUsers((prevState) => prevState.map((user) => user._id === id ? {...user, bookmark: !user.bookmark } : {...user, }))
     }
 
     
