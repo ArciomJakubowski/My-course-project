@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import API from "../api";
 import { useHistory } from "react-router-dom";
 import QualitiesList from "./qualitiesList";
+import PropTypes from "prop-types";
 
-const UserPage = (id) => {
-    // console.log("id", typeof id);
-    const userId = id.id.toString();
-    // console.log("useId", typeof userId);
+const UserPage = ({ id }) => {
+    console.log("id", typeof id);
+    const userId = id.toString();
+    console.log("useId", typeof userId);
 
     const history = useHistory();
 
@@ -47,4 +48,9 @@ const UserPage = (id) => {
     }
     return <h1>Loading</h1>;
 };
+
+UserPage.propTypes = {
+    id: PropTypes.string.isRequired
+};
+
 export default UserPage;

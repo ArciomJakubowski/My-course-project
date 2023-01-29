@@ -1,8 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
-import { Link } from "react-router-dom";
-// import UserPage from "./userPage";
 
 const TableBody = ({ data, columns }) => {
     // console.log(data);
@@ -24,17 +22,9 @@ const TableBody = ({ data, columns }) => {
         <tbody>
             {data.map((item) => (
                 <tr key={item._id}>
-                    {Object.keys(columns).map((column) =>
-                        column === "name" ? (
-                            <td key={column}>
-                                <Link to={`/users/${item._id}`}>
-                                    {item.name}
-                                </Link>
-                            </td>
-                        ) : (
-                            <td key={column}>{renderContent(item, column)}</td>
-                        )
-                    )}
+                    {Object.keys(columns).map((column) => (
+                        <td key={column}>{renderContent(item, column)}</td>
+                    ))}
                 </tr>
             ))}
         </tbody>
