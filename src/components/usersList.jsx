@@ -51,7 +51,7 @@ const UsersList = () => {
     // console.log("selectedProf", selectedProf);
 
     const handleSearchUsers = ({ target }) => {
-        setSelectedProf("");
+        setSelectedProf();
         // console.log(e.target.value);
         // console.log(searchUsers);
         setSearchUsers(target.value);
