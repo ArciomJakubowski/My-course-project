@@ -13,6 +13,7 @@ const UsersList = () => {
     const pageSize = 8;
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedProf, setSelectedProf] = useState();
+    const [searchUsers, setSearchUsers] = useState("");
     const [professions, setProfession] = useState();
     const [sortBy, setSortBy] = useState({ path: "name", order: "asc" });
 
@@ -40,13 +41,22 @@ const UsersList = () => {
     }, []);
     useEffect(() => {
         setCurrentPage(1);
-    }, [selectedProf]);
+    }, [selectedProf, searchUsers]);
 
     const handleProfessionSelect = (item) => {
+        setSearchUsers("");
         setSelectedProf(item);
     };
 
     // console.log("selectedProf", selectedProf);
+
+    const handleSearchUsers = ({ target }) => {
+        setSelectedProf("");
+        // console.log(e.target.value);
+        // console.log(searchUsers);
+        setSearchUsers(target.value);
+        // console.log(typeof target.value);
+    };
 
     const handlePageChange = (pageIndex) => {
         // console.log("page: ", pageIndex);
@@ -55,9 +65,15 @@ const UsersList = () => {
     const handleSort = (item) => {
         setSortBy(item);
     };
+
     // console.log("allUsers", allUsers);
     if (users) {
-        const filteredUsers = selectedProf
+        // const filteredUsers = selectedProf
+        const filteredUsers = searchUsers
+            ? users.filter((user) =>
+                  user.name.toLowerCase().includes(searchUsers.toLowerCase())
+              )
+            : selectedProf
             ? users.filter(
                   (user) =>
                       JSON.stringify(user.profession) ===
@@ -96,6 +112,17 @@ const UsersList = () => {
                 )}
                 <div className="d-flex flex-column">
                     <SearchStatus arrayLength={count} />
+
+                    {/* <label htmlFor="search">search</label> */}
+                    <input
+                        type="=text"
+                        id="searchUsers"
+                        name="searchUsers"
+                        placeholder="Search..."
+                        onChange={handleSearchUsers}
+                        value={searchUsers}
+                    />
+
                     {count > 0 && (
                         <UserTable
                             users={userCrop}
@@ -105,6 +132,7 @@ const UsersList = () => {
                             onToggleBookMark={handleToggleBookMark}
                         />
                     )}
+
                     <div className="d-flex justify-content-center">
                         <Pagination
                             itemsCount={count}
@@ -121,7 +149,7 @@ const UsersList = () => {
 };
 
 UsersList.propTypes = {
-    users: PropTypes.array.isRequired
+    users: PropTypes.array
 };
 
 export default UsersList;
