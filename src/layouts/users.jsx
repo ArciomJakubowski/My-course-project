@@ -1,6 +1,6 @@
-import UserPage from "../components/userPage";
+import UserPage from "../components/page/userPage";
 import React from "react";
-import UsersList from "../components/usersList";
+import UsersListPage from "../components/page/usersListPage";
 import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
 
@@ -9,7 +9,7 @@ const Users = () => {
 
     const { userId } = params;
 
-    return <>{userId ? <UserPage id={userId} /> : <UsersList />}</>;
+    return <>{userId ? <UserPage id={userId} /> : <UsersListPage />}</>;
 };
 
 Users.propTypes = {

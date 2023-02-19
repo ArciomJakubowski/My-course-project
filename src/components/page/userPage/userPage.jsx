@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import API from "../api";
+import API from "../../../api";
 import { useHistory } from "react-router-dom";
-import QualitiesList from "./qualitiesList";
+import Qualities from "../../ui/qualities";
 import PropTypes from "prop-types";
 
 const UserPage = ({ id }) => {
@@ -32,7 +32,7 @@ const UserPage = ({ id }) => {
                 <h1>{name}</h1>
                 <h4>Профессия: {profession.name}</h4>
                 <h4>
-                    <QualitiesList qualities={qualities} />
+                    <Qualities qualities={qualities} />
                 </h4>
                 <h6> CompletedMeetings: {completedMeetings}</h6>
                 <h2>Rate: {rate}</h2>
@@ -41,7 +41,7 @@ const UserPage = ({ id }) => {
                         handleSaveAllUsers();
                     }}
                 >
-                    Все пользователи
+                    Изменить
                 </button>
             </>
         );
