@@ -48,7 +48,9 @@ const SelectField = ({
 
                 {optionsArray &&
                     optionsArray.map((option) => (
-                        <option key={option.value}>{option.label}</option>
+                        <option key={option.value} value={option.value}>
+                            {option.label}
+                        </option>
                     ))}
 
                 {/* {optionsArray &&
