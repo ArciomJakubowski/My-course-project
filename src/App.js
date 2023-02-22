@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import Main from "./layouts/Main";
 import Login from "./layouts/login";
 import Users from "./layouts/users";
+import UpDateUserPage from "./components/ui/updateUserPage";
 
 function App() {
     // console.log("userId", userId);
@@ -12,8 +13,9 @@ function App() {
             <NavBar />
             <Switch>
                 <Route path="/" exact component={Main} />
+                <Route path="/edit" component={UpDateUserPage} />
                 <Route path="/login/:type?" component={Login} />
-                <Route path="/users/:userId?" component={Users} />
+                <Route path="/users/:userId?/" component={Users} />
             </Switch>
         </div>
     );

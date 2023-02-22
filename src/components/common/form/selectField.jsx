@@ -18,12 +18,12 @@ const SelectField = ({
         return "form-select" + (error ? " is-invalid" : "");
     };
 
+    console.log(options);
+
     const optionsArray =
         !Array.isArray(options) && typeof options === "object"
             ? Object.values(options)
             : options;
-
-    console.log(optionsArray);
 
     //  Object.keys(options).map((optionName) => ({
     //       name: options[optionName].name,
@@ -46,12 +46,10 @@ const SelectField = ({
                     {defaultOption}
                 </option>
 
-                {optionsArray.lenth > 0 &&
+                {optionsArray &&
                     optionsArray.map((option) => (
-
-                        { option.label }
-
-                        ))}
+                        <option key={option.value}>{option.label}</option>
+                    ))}
 
                 {/* {optionsArray &&
                     optionsArray.map((option) => (
