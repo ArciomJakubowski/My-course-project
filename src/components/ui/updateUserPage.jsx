@@ -145,10 +145,21 @@ const UpDateUserPage = ({ id }) => {
                     history.push(`/users/${data._id}`);
                 });
         };
+
+        const handleOpenUserPage = () => {
+            history.push(`/users/${data._id}`);
+        };
+
         if (data._id && professions && qualities) {
             return (
                 <>
                     <div className="container mt-5">
+                        <button
+                            className="btn btn-primary mt-5 ms-5"
+                            onClick={handleOpenUserPage}
+                        >
+                            <i className="bi bi-caret-left"></i>Назад
+                        </button>
                         <div className="row">
                             <div className="col-md-6 offset-md-3 shadow p-4">
                                 <form onSubmit={handleSubmit}>

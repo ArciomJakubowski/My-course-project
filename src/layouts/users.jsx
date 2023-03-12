@@ -10,6 +10,7 @@ const Users = () => {
     console.log("params", params);
 
     const { userId, edit } = params;
+    console.log(userId);
 
     return (
         <>
