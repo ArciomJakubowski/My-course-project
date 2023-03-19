@@ -4,6 +4,7 @@ import UsersListPage from "../components/page/usersListPage";
 import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
 import UpDateUserPage from "../components/ui/updateUserPage";
+import UserProvider from "../hooks/useUsers";
 
 const Users = () => {
     const params = useParams();
@@ -14,15 +15,17 @@ const Users = () => {
 
     return (
         <>
-            {userId ? (
-                edit ? (
-                    <UpDateUserPage id={userId} />
+            <UserProvider>
+                {userId ? (
+                    edit ? (
+                        <UpDateUserPage id={userId} />
+                    ) : (
+                        <UserPage id={userId} />
+                    )
                 ) : (
-                    <UserPage id={userId} />
-                )
-            ) : (
-                <UsersListPage />
-            )}
+                    <UsersListPage />
+                )}
+            </UserProvider>
         </>
     );
 };

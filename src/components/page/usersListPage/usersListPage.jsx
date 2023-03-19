@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { paginate } from "../../../util/paginate";
 import Pagination from "../../common/pagination";
-// import User from "./user";
+import { useUser } from "../../../hooks/useUsers";
 import PropTypes from "prop-types";
 import API from "../../../api";
 import SearchStatus from "../../ui/searchStatus";
@@ -17,23 +17,35 @@ const UsersListPage = () => {
     const [professions, setProfession] = useState();
     const [sortBy, setSortBy] = useState({ path: "name", order: "asc" });
 
-    const [users, setUsers] = useState();
-    useEffect(() => {
-        API.users.fetchAll().then((data) => setUsers(data));
-    }, []);
+    // const [users, setUsers] = useState();
+    const { users } = useUser();
+    console.log(users);
+
+    // useEffect(() => {
+    //     API.users.fetchAll().then((data) => setUsers(data));
+    // }, []);
 
     // console.log("users", users);
     // console.log("data", data);
 
     const handleDelete = (userId) => {
-        setUsers(users.filter((user) => user._id !== userId));
+        // setUsers(users.filter((user) => user._id !== userId));
+        console.log(userId);
     };
     const handleToggleBookMark = (id) => {
-        setUsers((prevState) =>
-            prevState.map((user) =>
-                user._id === id ? { ...user, bookmark: !user.bookmark } : user
-            )
-        );
+        // setUsers((prevState) =>
+        //     prevState.map((user) =>
+        //         user._id === id ? { ...user, bookmark: !user.bookmark } : user
+        //     )
+        // );
+        const newArray = users.map((user) => {
+            if (user._id === id) {
+                return { ...user, bookmark: !user.bookmark };
+            }
+            return user;
+        });
+        // setUsers(newArray)
+        console.log(newArray);
     };
 
     useEffect(() => {
