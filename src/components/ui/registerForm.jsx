@@ -1,85 +1,114 @@
 import React, { useState, useEffect } from "react";
-import API from "../../api";
+// import API from "../../api";
 import { validator } from "../../util/validator";
 import CheckBoxField from "../common/form/checkBoxField";
 import MultiSelectField from "../common/form/multiSelectField";
 import RadioField from "../common/form/radioField";
 import SelectField from "../common/form/selectField";
 import TextField from "../common/form/textField";
+import { useQualities } from "../../hooks/useQuality";
+import { useProfessions } from "../../hooks/useProfession";
+import { useAuth } from "../../hooks/useAuth";
+import { useHistory } from "react-router-dom";
 
 const RegisterForm = () => {
     // const [email, setEmail] = useState("");
+
+    const history = useHistory();
+    console.log(history);
 
     const [data, setData] = useState({
         email: "",
         password: "",
         profession: "",
         sex: "male",
-        qualities: [],
+        qualities: "",
         licence: false
     });
 
+    const { signUp } = useAuth();
+    console.log("signUp", signUp);
+
+    const { qualities } = useQualities();
+
+    const qualitiesList = qualities.map((q) => ({
+        label: q.name,
+        value: q._id
+    }));
+
+    const { professions } = useProfessions();
+    console.log(professions);
+
+    const professionsList = professions.map((professionName) => ({
+        label: professionName.name,
+        value: professionName._id
+    }));
+    console.log(qualities);
+
     // const [qualities, setQualities] = useState({});
-    const [qualities, setQualities] = useState([]);
-    const [professions, setProfession] = useState();
+    // const [qualities, setQualities] = useState([]);
+    // const [professions, setProfession] = useState();
     const [errors, setErrors] = useState({});
 
-    useEffect(() => {
-        API.professions.fetchAll().then((data) => {
-            const professionsList = Object.keys(data).map((professionName) => ({
-                label: data[professionName].name,
-                value: data[professionName]._id
-            }));
-            setProfession(professionsList);
-        });
-        API.qualities.fetchAll().then((data) => {
-            const qualitiesList = Object.keys(data).map((optionName) => ({
-                label: data[optionName].name,
-                value: data[optionName]._id,
-                color: data[optionName].color
-            }));
-            setQualities(qualitiesList);
-        });
-    }, []);
+    // useEffect(() => {
+    //     API.professions.fetchAll().then((data) => {
+    //         const professionsList = Object.keys(data).map((professionName) => ({
+    //             label: data[professionName].name,
+    //             value: data[professionName]._id
+    //         }));
+    //         setProfession(professionsList);
+    //     });
+    //     API.qualities.fetchAll().then((data) => {
+    //         const qualitiesList = Object.keys(data).map((optionName) => ({
+    //             label: data[optionName].name,
+    //             value: data[optionName]._id,
+    //             color: data[optionName].color
+    //         }));
+    //         setQualities(qualitiesList);
+    //     });
+    // }, []);
 
     // useEffect(() => {
     //     API.professions.fetchAll().then((data) => setProfession(data));
     //     API.qualities.fetchAll().then((data) => setQualities(data));
     // }, []);
 
-    const getProfessionById = (id) => {
-        for (const prof of professions) {
-            if (prof.value === id) {
-                return { _id: prof.value, name: prof.label };
-            }
-        }
-    };
-    const getQualities = (elements) => {
-        const qualitiesArray = [];
-        for (const elem of elements) {
-            for (const quality in qualities) {
-                if (elem.value === qualities[quality].value) {
-                    qualitiesArray.push({
-                        _id: qualities[quality].value,
-                        name: qualities[quality].label,
-                        color: qualities[quality].color
-                    });
-                }
-            }
-        }
-        return qualitiesArray;
-    };
+    // const getProfessionById = (id) => {
+    //     for (const prof of professions) {
+    //         if (prof.value === id) {
+    //             return { _id: prof.value, name: prof.label };
+    //         }
+    //     }
+    // };
+    // const getQualities = (elements) => {
+    //     const qualitiesArray = [];
+    //     for (const elem of elements) {
+    //         for (const quality in qualities) {
+    //             if (elem.value === qualities[quality].value) {
+    //                 qualitiesArray.push({
+    //                     _id: qualities[quality].value,
+    //                     name: qualities[quality].label,
+    //                     color: qualities[quality].color
+    //                 });
+    //             }
+    //         }
+    //     }
+    //     return qualitiesArray;
+    // };
 
     const handleChange = (target) => {
         // setEmail(e.target.value);
+        console.log("таргет", target);
         setData((prevState) => ({
             ...prevState,
             [target.name]: target.value
         }));
 
         // console.log(e.target.value);
-        console.log(target.value);
+        console.log(target.name);
+        // console.log(target.value);
     };
+
     const validatorConfig = {
         email: {
             isRequired: {
@@ -133,16 +162,31 @@ const RegisterForm = () => {
 
     const isValid = Object.keys(errors).length === 0;
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const isValid = validate();
         if (!isValid) return;
-        const { profession, qualities } = data;
-        console.log({
+        console.log(data);
+        // const { profession, qualities } = data;
+        const newData = {
             ...data,
-            profession: getProfessionById(profession),
-            qualities: getQualities(qualities)
-        });
+            qualities: data.qualities.map((q) => q.value)
+        };
+        console.log(newData);
+
+        try {
+            await signUp(newData);
+            history.push("/");
+        } catch (error) {
+            setErrors(error);
+            console.log(error);
+        }
+
+        // console.log({
+        //     ...data,
+        //     profession: getProfessionById(profession),
+        //     qualities: getQualities(qualities)
+        // });
     };
 
     // const handleSubmit = (e) => {
@@ -174,7 +218,7 @@ const RegisterForm = () => {
                 label="Выбери свою профессию"
                 name="profession"
                 defaultOption="Choose..."
-                options={professions}
+                options={professionsList}
                 value={data.profession}
                 error={errors.profession}
                 onChange={handleChange}
@@ -193,7 +237,8 @@ const RegisterForm = () => {
             />
             <MultiSelectField
                 onChange={handleChange}
-                options={qualities}
+                options={qualitiesList}
+                // options={qualities}
                 defaultValue={data.qualities}
                 name="qualities"
                 label="Выберите ваши качества"

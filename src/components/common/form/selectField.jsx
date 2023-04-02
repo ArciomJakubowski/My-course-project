@@ -12,6 +12,7 @@ const SelectField = ({
 }) => {
     const handleChange = ({ target }) => {
         onChange({ name: target.name, value: target.value });
+        console.log("таргет 1", target);
     };
 
     const getInputClasses = () => {
