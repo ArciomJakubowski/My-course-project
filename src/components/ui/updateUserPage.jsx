@@ -9,45 +9,42 @@ import { validator } from "../../util/validator";
 import { useHistory } from "react-router-dom";
 import { useProfessions } from "../../hooks/useProfession";
 import { useQualities } from "../../hooks/useQuality";
-import { useUser } from "../../hooks/useUsers";
+import { useAuth } from "../../hooks/useAuth";
 
 const UpDateUserPage = ({ id }) => {
     const history = useHistory();
+    const [data, setData] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
+    const [errors, setErrors] = useState({});
 
-    const { users, getUserById } = useUser();
+    const { updateDate, currentUser } = useAuth();
 
-    const oldUser = getUserById(id);
-
-    const { professions, getProfession } = useProfessions();
-
-    const oldUserProfession = getProfession(oldUser.profession);
+    const { professions, isLoading: isLoadingProfessions } = useProfessions();
 
     const professionsList = professions.map((professionName) => ({
         value: professionName._id,
         label: professionName.name
     }));
 
-    const { qualities, getQuality } = useQualities();
+    const { qualities, isLoading: isLoadingQualities } = useQualities();
 
     const qualitiesList = qualities.map((q) => ({
         label: q.name,
         value: q._id
     }));
 
-    const userQual = oldUser.qualities.map((q) => getQuality(q));
-    // const userQual = getQuality(oldUser.qualities);
-    // const qU = userQual.label;
-    // console.log("qU", qU);
+    const handleChange = (target) => {
+        console.log(target.value);
+        // setEmail(e.target.value);
+        setData((prevState) => ({
+            ...prevState,
+            [target.name]: target.value
+        }));
 
-    const uQV = userQual.map((uq) => ({
-        value: uq._id,
-        label: uq.name,
-        color: uq.color
-    }));
-
+        // console.log(e.target.value);
+    };
     // const [professions, setProfessions] = useState([]);
     // const [qualities, setQualities] = useState([]);
-    const [errors, setErrors] = useState({});
 
     // useEffect(() => {
     //     API.users.getById(id).then((user) => {
@@ -83,17 +80,6 @@ const UpDateUserPage = ({ id }) => {
     //     });
     // }, []);
 
-    const handleChange = (target) => {
-        console.log(target.value);
-        // setEmail(e.target.value);
-        setData((prevState) => ({
-            ...prevState,
-            [target.name]: target.value
-        }));
-
-        // console.log(e.target.value);
-    };
-
     // const getProfessionById = (id) => {
     //     for (const prof of professions) {
     //         console.log("prof", prof);
@@ -117,15 +103,38 @@ const UpDateUserPage = ({ id }) => {
     //     }
     // };
 
-    // const userQuality = getQualities(qualities);
+    const getQualitiesById = (qualitiesIds) => {
+        const newQualitiesArray = [];
+        for (const qualId of qualitiesIds) {
+            for (const quality of qualities) {
+                if (quality._id === qualId) {
+                    newQualitiesArray.push(quality);
+                    break;
+                }
+            }
+        }
+        return newQualitiesArray;
+    };
 
-    const [data, setData] = useState({
-        name: oldUser.name,
-        email: oldUser.email,
-        profession: oldUserProfession._id,
-        sex: "male",
-        qualities: uQV
-    });
+    useEffect(() => {
+        if (!isLoadingProfessions && !isLoadingQualities && currentUser) {
+            setData(() => ({
+                ...currentUser,
+                qualities: getQualitiesById(currentUser.qualities).map(
+                    (qual) => ({
+                        value: qual._id,
+                        label: qual.name
+                    })
+                )
+            }));
+        }
+    }, [isLoadingProfessions, isLoadingQualities, currentUser]);
+
+    useEffect(() => {
+        if (data && isLoading) {
+            setIsLoading(false);
+        }
+    }, [data]);
 
     const validatorConfig = {
         email: {
@@ -155,26 +164,17 @@ const UpDateUserPage = ({ id }) => {
         return Object.keys(errors).length === 0;
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const isValid = validate();
         if (!isValid) return;
-        const { qualities, profession } = data;
 
-        // setData({
-        //     ...data,
-        //     profession: getProfessionById(upUser.profession),
-        //     qualities: getQualities(userQuality)
-        // });
-        const newData = {
+        await updateDate({
             ...data,
-            profession: profession.value,
-            // profession: getProfessionById(profession).value,
-            // qualities: getQualities(qualities)
-            qualities: qualities.map((q) => q.value)
-        };
+            qualities: data.qualities.map((qual) => qual.value)
+        });
 
-        setData(newData);
+        handleOpenUserPage();
 
         //     API.users
         //         .update(id, {
@@ -185,18 +185,13 @@ const UpDateUserPage = ({ id }) => {
         //         .then((data) => {
         //             history.push(`/users/${data._id}`);
         //         });
-
-        handleOpenUserPage();
     };
 
     const handleOpenUserPage = () => {
-        history.push(`/users/${users._id}`);
+        history.push(`/users/${currentUser._id}`);
     };
-    // const handleOpenUserPage = () => {
-    //     history.push(`/users/${data._id}`);
-    // };
 
-    if (id && oldUserProfession && userQual) {
+    if (!isLoading && qualities) {
         return (
             <>
                 <div className="container mt-5">

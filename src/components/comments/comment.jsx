@@ -15,6 +15,7 @@ const Comment = ({ onRemove, _id: id, userId, created_at: time, content }) => {
     const { currentUser } = useAuth();
 
     const user = getUserById(userId);
+
     // const [load, setLoad] = useState(false);
 
     // console.log("user", user);
@@ -40,7 +41,7 @@ const Comment = ({ onRemove, _id: id, userId, created_at: time, content }) => {
                 <div className="col">
                     <div className="d-flex flex-start ">
                         <img
-                            src={user.image}
+                            src={user?.image}
                             className="rounded-circle shadow-1-strong me-3"
                             alt="avatar"
                             width="65"

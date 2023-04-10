@@ -90,7 +90,7 @@ export const CommentsProvider = ({ children }) => {
         <CommentsContext.Provider
             value={{ comments, createComment, isLoading, removeComment }}
         >
-            {children}
+            {!isLoading ? children : "Loading"}
         </CommentsContext.Provider>
     );
 };
