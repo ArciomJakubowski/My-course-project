@@ -7,7 +7,7 @@ import { useAuth } from "../../hooks/useAuth";
 
 const Comment = ({ onRemove, _id: id, userId, created_at: time, content }) => {
     // console.log("comments", comments);
-    console.log("userId", userId);
+    // console.log("userId", userId);
     // console.log("onRemove", onRemove);
 
     // const [user, setUser] = useState();
@@ -17,7 +17,7 @@ const Comment = ({ onRemove, _id: id, userId, created_at: time, content }) => {
     const user = getUserById(userId);
     // const [load, setLoad] = useState(false);
 
-    console.log("user", user);
+    // console.log("user", user);
     // console.log("load", load);
 
     // useEffect(() => {

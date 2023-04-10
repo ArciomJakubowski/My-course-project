@@ -5,7 +5,7 @@ const Main = () => {
     // const { initialize } = useMockData();
     const { error, initialize, progress, status } = useMockData();
     const handleClick = () => {
-        console.log("clicked");
+        // console.log("clicked");
         initialize();
     };
     return (

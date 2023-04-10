@@ -8,8 +8,8 @@ const Quality = ({ _id }) => {
 
     const { name, color } = useQualities().getQuality(_id);
 
-    console.log("name", name);
-    console.log("color", color);
+    // console.log("name", name);
+    // console.log("color", color);
 
     return (
         <span key={_id} className={"badge m-1 bg-" + color}>

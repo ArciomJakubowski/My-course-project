@@ -8,10 +8,10 @@ import UserProvider from "../hooks/useUsers";
 
 const Users = () => {
     const params = useParams();
-    console.log("params", params);
+    // console.log("params", params);
 
     const { userId, edit } = params;
-    console.log(userId);
+    // console.log(userId);
 
     return (
         <>

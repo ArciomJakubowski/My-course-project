@@ -15,7 +15,6 @@ const RegisterForm = () => {
     // const [email, setEmail] = useState("");
 
     const history = useHistory();
-    console.log(history);
 
     const [data, setData] = useState({
         email: "",
@@ -28,7 +27,6 @@ const RegisterForm = () => {
     });
 
     const { signUp } = useAuth();
-    console.log("signUp", signUp);
 
     const { qualities } = useQualities();
 
@@ -38,13 +36,11 @@ const RegisterForm = () => {
     }));
 
     const { professions } = useProfessions();
-    console.log(professions);
 
     const professionsList = professions.map((professionName) => ({
         label: professionName.name,
         value: professionName._id
     }));
-    console.log(qualities);
 
     // const [qualities, setQualities] = useState({});
     // const [qualities, setQualities] = useState([]);
@@ -99,14 +95,14 @@ const RegisterForm = () => {
 
     const handleChange = (target) => {
         // setEmail(e.target.value);
-        console.log("таргет", target);
+        // console.log("таргет", target);
         setData((prevState) => ({
             ...prevState,
             [target.name]: target.value
         }));
 
         // console.log(e.target.value);
-        console.log(target.name);
+        // console.log(target.name);
         // console.log(target.value);
     };
 
@@ -182,7 +178,7 @@ const RegisterForm = () => {
             ...data,
             qualities: data.qualities.map((q) => q.value)
         };
-        console.log(newData);
+        // console.log(newData);
 
         try {
             await signUp(newData);

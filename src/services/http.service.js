@@ -18,7 +18,7 @@ http.interceptors.request.use(
             config.url =
                 (containSlash ? config.url.slice(0, -1) : config.url) + ".json";
             // config.url = config.url.slice(0, -1) + ".json";
-            console.log(config.url);
+            // console.log(config.url);
             const expiresDate = localStorageService.getTokenExpiresDate();
             const refreshToken = localStorageService.getRefreshToken();
             if (refreshToken && expiresDate < Date.now()) {
@@ -57,11 +57,11 @@ function transformData(data) {
 http.interceptors.response.use(
     (res) => {
         if (configFile.isFireBase) {
-            console.log("1", res.data);
+            // console.log("1", res.data);
             // Object.keys(res.data)
             transformData(res.data);
             res.data = { content: transformData(res.data) };
-            console.log(res.data);
+            // console.log(res.data);
         }
         return res;
     },
@@ -73,7 +73,7 @@ http.interceptors.response.use(
             error.response.status < 500;
         if (!expeftedErrors) {
             // logger.log(error);
-            console.log(error);
+            // console.log(error);
             toast.error("Something wrong . Try  it later.");
         }
         return Promise.reject(error);

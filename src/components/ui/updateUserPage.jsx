@@ -14,19 +14,13 @@ import { useUser } from "../../hooks/useUsers";
 const UpDateUserPage = ({ id }) => {
     const history = useHistory();
 
-    console.log("userId", id);
-
     const { users, getUserById } = useUser();
-    console.log("users", users);
 
     const oldUser = getUserById(id);
-    console.log("oldUser", oldUser);
 
     const { professions, getProfession } = useProfessions();
-    console.log("professions", professions);
 
     const oldUserProfession = getProfession(oldUser.profession);
-    console.log("oldUserProfession", oldUserProfession);
 
     const professionsList = professions.map((professionName) => ({
         value: professionName._id,
@@ -40,20 +34,16 @@ const UpDateUserPage = ({ id }) => {
         value: q._id
     }));
 
-    console.log("oldUser.qualities", oldUser.qualities);
-    console.log("qualities", qualities);
     const userQual = oldUser.qualities.map((q) => getQuality(q));
     // const userQual = getQuality(oldUser.qualities);
     // const qU = userQual.label;
     // console.log("qU", qU);
-    console.log("userQual", userQual);
+
     const uQV = userQual.map((uq) => ({
         value: uq._id,
         label: uq.name,
         color: uq.color
     }));
-
-    console.log("uQV", uQV);
 
     // const [professions, setProfessions] = useState([]);
     // const [qualities, setQualities] = useState([]);
@@ -113,22 +103,21 @@ const UpDateUserPage = ({ id }) => {
     //     }
     // };
 
-    const getQualities = (elements) => {
-        for (const elem of elements) {
-            for (const quality in qualities) {
-                if (elem.value === qualities[quality].value) {
-                    return {
-                        label: qualities[quality].name,
-                        value: qualities[quality]._id,
-                        color: qualities[quality].color
-                    };
-                }
-            }
-        }
-    };
+    // const getQualities = (elements) => {
+    //     for (const elem of elements) {
+    //         for (const quality in qualities) {
+    //             if (elem.value === qualities[quality].value) {
+    //                 return {
+    //                     label: qualities[quality].name,
+    //                     value: qualities[quality]._id,
+    //                     color: qualities[quality].color
+    //                 };
+    //             }
+    //         }
+    //     }
+    // };
 
-    const userQuality = getQualities(qualities);
-    console.log("qualityUser", userQuality);
+    // const userQuality = getQualities(qualities);
 
     const [data, setData] = useState({
         name: oldUser.name,
@@ -137,8 +126,6 @@ const UpDateUserPage = ({ id }) => {
         sex: "male",
         qualities: uQV
     });
-
-    console.log("data", data);
 
     const validatorConfig = {
         email: {
@@ -187,7 +174,6 @@ const UpDateUserPage = ({ id }) => {
             qualities: qualities.map((q) => q.value)
         };
 
-        console.log("newData", newData);
         setData(newData);
 
         //     API.users

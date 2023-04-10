@@ -58,13 +58,13 @@ const AuthProvider = ({ children }) => {
                 completedMeetings: randomInt(0, 200),
                 ...rest
             });
-            console.log(data);
+            // console.log(data);
         } catch (error) {
             errorCatcher(error);
 
-            console.log("21312312", error);
+            // console.log("error", error);
             const { code, message } = error.response.data.error;
-            console.log(code, message);
+            // console.log(code, message);
 
             if (code === 400) {
                 if (message === "EMAIL_EXISTS") {
@@ -95,17 +95,13 @@ const AuthProvider = ({ children }) => {
                 }
             );
             setTokens(data);
-            console.log(data);
+            // console.log(data);
 
             await getUserData();
         } catch (error) {
             errorCatcher(error);
 
-            console.log("21312312", error);
-
             const { code, message } = error.response.data.error;
-
-            console.log(code, message);
 
             if (code === 400) {
                 // if (message === "EMAIL_NOT_FOUND") {

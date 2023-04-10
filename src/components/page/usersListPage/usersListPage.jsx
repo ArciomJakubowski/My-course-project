@@ -23,7 +23,7 @@ const UsersListPage = () => {
     const pageSize = 8;
     // const [users, setUsers] = useState();
 
-    console.log(users);
+    // console.log(users);
 
     // useEffect(() => {
     //     API.users.fetchAll().then((data) => setUsers(data));
@@ -34,7 +34,7 @@ const UsersListPage = () => {
 
     const handleDelete = (userId) => {
         // setUsers(users.filter((user) => user._id !== userId));
-        console.log(userId);
+        // console.log(userId);
     };
     const handleToggleBookMark = (id) => {
         // setUsers((prevState) =>
@@ -42,14 +42,14 @@ const UsersListPage = () => {
         //         user._id === id ? { ...user, bookmark: !user.bookmark } : user
         //     )
         // );
-        const newArray = users.map((user) => {
-            if (user._id === id) {
-                return { ...user, bookmark: !user.bookmark };
-            }
-            return user;
-        });
-        // setUsers(newArray)
-        console.log(newArray);
+        // const newArray = users.map((user) => {
+        //     if (user._id === id) {
+        //         return { ...user, bookmark: !user.bookmark };
+        //     }
+        //     return user;
+        // });
+        // // setUsers(newArray)
+        // console.log(newArray);
     };
 
     // useEffect(() => {

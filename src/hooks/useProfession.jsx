@@ -14,7 +14,7 @@ export const ProfessionProvider = ({ children }) => {
     const [professions, setProfession] = useState([]);
     const [error, setError] = useState(null);
 
-    console.log("professions", professions);
+    // console.log("professions", professions);
 
     useEffect(() => {
         getProfessionsList();

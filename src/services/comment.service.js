@@ -8,7 +8,7 @@ const commentService = {
             commentEndpoint + payload._id,
             payload
         );
-        console.log(data);
+        // console.log(data);
         return data;
     },
     getComments: async (pageId) => {

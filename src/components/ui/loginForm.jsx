@@ -9,7 +9,7 @@ const LoginForm = () => {
     // const [email, setEmail] = useState("");
     // console.log(process.env);
     const history = useHistory();
-    console.log(history);
+
     // console.log(history.location.state.from.pathname);
 
     const [data, setData] = useState({
@@ -18,12 +18,10 @@ const LoginForm = () => {
         stayOn: false
     });
     const [errors, setErrors] = useState({});
-    console.log("errors", errors);
 
     const [enterError, setEnterError] = useState(null);
 
     const { signIn } = useAuth();
-    console.log("signIn", signIn);
 
     const handleChange = (target) => {
         // setEmail(e.target.value);
@@ -32,7 +30,7 @@ const LoginForm = () => {
             [target.name]: target.value
         }));
         // console.log(e.target.value);
-        console.log(target.value);
+        // console.log(target.value);
         setEnterError(null);
     };
 
@@ -86,7 +84,7 @@ const LoginForm = () => {
         const isValid = validate();
         if (!isValid) return;
         // if (Object.keys(errors).length !== 0) return;
-        console.log(data);
+        // console.log(data);
 
         try {
             await signIn(data);

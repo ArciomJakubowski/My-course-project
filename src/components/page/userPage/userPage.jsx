@@ -9,15 +9,13 @@ import { useUser } from "../../../hooks/useUsers";
 import { CommentsProvider } from "../../../hooks/useComments";
 
 const UserPage = ({ id }) => {
-    // console.log("id", typeof id);
-    console.log("id", id);
+    // console.log("id", id);
     // const userId = id.toString();
-    // console.log("useId", typeof userId);
     // console.log("useId", userId);
 
     const { getUserById } = useUser();
     const user = getUserById(id);
-    console.log("user", user);
+    // console.log("user", user);
 
     // const [page, setPage] = useState();
 
