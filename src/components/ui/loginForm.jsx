@@ -9,6 +9,8 @@ const LoginForm = () => {
     // const [email, setEmail] = useState("");
     // console.log(process.env);
     const history = useHistory();
+    console.log(history);
+    // console.log(history.location.state.from.pathname);
 
     const [data, setData] = useState({
         email: "",
@@ -88,7 +90,11 @@ const LoginForm = () => {
 
         try {
             await signIn(data);
-            history.push("/");
+            history.push(
+                history.location.state
+                    ? history.location.state.from.pathname
+                    : "/"
+            );
         } catch (error) {
             console.log(error.message);
             setEnterError(error.message);

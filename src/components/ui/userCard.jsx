@@ -1,10 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 const UserCard = ({ items }) => {
     // console.log("items", items);
     const history = useHistory();
+
+    const { currentUser } = useAuth();
 
     const handleOpenFormUser = () => {
         history.push(`/users/${items._id}/edit`);
@@ -13,19 +16,23 @@ const UserCard = ({ items }) => {
     return (
         <div className="card mb-3">
             <div className="card-body">
-                <button
-                    className="position-absolute top-0 end-0 btn btn-light btn-sm"
-                    onClick={handleOpenFormUser}
-                >
-                    <i className="bi bi-gear"></i>
-                </button>
+                {currentUser._id === items._id && (
+                    <button
+                        className="position-absolute top-0 end-0 btn btn-light btn-sm"
+                        onClick={handleOpenFormUser}
+                    >
+                        <i className="bi bi-gear"></i>
+                    </button>
+                )}
+
                 <div className="d-flex flex-column align-items-center text-center position-relative">
                     <img
-                        src={`https://avatars.dicebear.com/api/avataaars/${(
-                            Math.random() + 1
-                        )
-                            .toString(36)
-                            .substring(7)}.svg`}
+                        src={items.image}
+                        // src={`https://avatars.dicebear.com/api/avataaars/${(
+                        //     Math.random() + 1
+                        // )
+                        //     .toString(36)
+                        //     .substring(7)}.svg`}
                         className="rounded-circle shadow-1-strong me-3"
                         alt="avatar"
                         width="65"

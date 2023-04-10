@@ -1,37 +1,45 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import CommentForm from "../comments/commentForm";
-import { useParams } from "react-router-dom";
-import API from "../../api";
+// import { useParams } from "react-router-dom";
+// import API from "../../api";
 import CommentsList from "../comments/commentsList";
 import PropTypes from "prop-types";
 import _ from "lodash";
+import { useComments } from "../../hooks/useComments";
 
 const Comments = () => {
-    const { userId } = useParams();
+    // const { userId } = useParams();
     // console.log("params", params);
     // console.log(typeof userId);
 
-    const [comments, setComments] = useState([]);
+    // const [comments, setComments] = useState([]);
 
-    useEffect(() => {
-        API.comments
-            .fetchCommentsForUser(userId)
-            .then((data) => setComments(data));
-    }, []);
+    const { createComment, comments, removeComment } = useComments();
+
+    // useEffect(() => {
+    //     API.comments
+    //         .fetchCommentsForUser(userId)
+    //         .then((data) => setComments(data));
+    // }, []);
 
     // console.log("comments", comments);
 
     const handleAddComment = (data) => {
         // console.log(API.comments.add({ data }).then({ ...data, comments }));
-        API.comments
-            .add({ ...data, pageId: userId })
-            .then((data) => setComments([...comments, data]));
+        console.log(data);
+        createComment(data);
+
+        // API.comments
+        //     .add({ ...data, pageId: userId })
+        //     .then((data) => setComments([...comments, data]));
     };
 
     const handleRemoveComment = (id) => {
-        API.comments.remove(id).then((id) => {
-            setComments(comments.filter((com) => com._id !== id));
-        });
+        removeComment(id);
+        console.log(id);
+        // API.comments.remove(id).then((id) => {
+        //     setComments(comments.filter((com) => com._id !== id));
+        // });
     };
 
     const sortedCommets = _.orderBy(comments, ["created_at"], ["desc"]);

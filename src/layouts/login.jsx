@@ -4,8 +4,8 @@ import LoginForm from "../components/ui/loginForm";
 import RegisterForm from "../components/ui/registerForm";
 
 const Login = () => {
-    const { type } = useParams;
-    console.log({ type });
+    const { type } = useParams();
+    // console.log({ type });
     const [formType, setFormType] = useState(
         type === "register" ? type : "login"
     );
@@ -15,7 +15,6 @@ const Login = () => {
             prevState === "register" ? "login" : "register"
         );
     };
-
     return (
         <div className="container mt-5">
             <div className="row">

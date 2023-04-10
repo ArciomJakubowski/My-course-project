@@ -1,22 +1,23 @@
-import React, { useEffect, useState } from "react";
-import API from "../../api";
-import SelectField from "../common/form/selectField";
+import React, { useState } from "react";
+// import API from "../../api";
+// import SelectField from "../common/form/selectField";
 import UserTextField from "../common/form/userTextField";
 import { validator } from "../../util/validator";
 import PropTypes from "prop-types";
 
 const CommentForm = ({ onSubmit }) => {
-    const [data, setData] = useState({ userId: "", content: "" });
-    const [users, setUsers] = useState({});
+    const [data, setData] = useState({});
+    // const [data, setData] = useState({ userId: "", content: "" });
+    // const [users, setUsers] = useState({});
     const [errors, setErrors] = useState({});
 
     // console.log("data", data);
     // console.log(users);
     // console.log(errors);
 
-    useEffect(() => {
-        API.users.fetchAll().then(setUsers);
-    }, []);
+    // useEffect(() => {
+    //     API.users.fetchAll().then(setUsers);
+    // }, []);
 
     const handleChange = (target) => {
         // setEmail(e.target.value);
@@ -30,11 +31,11 @@ const CommentForm = ({ onSubmit }) => {
     };
 
     const validatorConfig = {
-        userId: {
-            isRequired: {
-                message: "Имя должно быть выбрано"
-            }
-        },
+        // userId: {
+        //     isRequired: {
+        //         message: "Имя должно быть выбрано"
+        //     }
+        // },
 
         content: {
             isRequired: {
@@ -43,24 +44,26 @@ const CommentForm = ({ onSubmit }) => {
         }
     };
 
-    const usersSelectedField =
-        users &&
-        Object.keys(users).map((userId) => ({
-            label: users[userId].name,
-            value: users[userId]._id
-        }));
+    // const usersSelectedField =
+    //     users &&
+    //     Object.keys(users).map((userId) => ({
+    //         label: users[userId].name,
+    //         value: users[userId]._id
+    //     }));
 
     const validate = () => {
         const errors = validator(data, validatorConfig);
         setErrors(errors);
         return Object.keys(errors).length === 0;
     };
-    useEffect(() => {
-        validate();
-    }, [data]);
+
+    // useEffect(() => {
+    //     validate();
+    // }, [data]);
 
     const clearForm = () => {
-        setData({ userId: "", content: "" });
+        setData({});
+        // setData({ userId: "", content: "" });
         setErrors({});
     };
 
@@ -80,7 +83,7 @@ const CommentForm = ({ onSubmit }) => {
         <>
             <form onSubmit={handleSubmit}>
                 <h1>New Comment</h1>
-                <SelectField
+                {/* <SelectField
                     // label="Пользователь"
                     name="userId"
                     defaultOption="Выберите пользователя"
@@ -88,12 +91,12 @@ const CommentForm = ({ onSubmit }) => {
                     value={data.userId}
                     error={errors.userId}
                     onChange={handleChange}
-                />
+                /> */}
 
                 <UserTextField
                     label="Сообщение"
                     name="content"
-                    value={data.content}
+                    value={data.content || ""}
                     onChange={handleChange}
                     error={errors.content}
                 />

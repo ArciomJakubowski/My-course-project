@@ -15,7 +15,7 @@ const QualitiesList = ({ qualities }) => {
     );
 };
 QualitiesList.propTypes = {
-    qualities: PropTypes.array.isRequired,
-    id: PropTypes.array.isRequired
+    qualities: PropTypes.array,
+    id: PropTypes.array
 };
 export default QualitiesList;

@@ -1,39 +1,45 @@
-import React, { useState, useEffect } from "react";
-import API from "../../../api";
+import React from "react";
+// import API from "../../../api";
 import PropTypes from "prop-types";
 import UserCard from "../../ui/userCard";
 import QualitiesCard from "../../ui/qualitiesCard";
 import CompletedMeetingsCard from "../../ui/completedMeetingsCard";
 import Comments from "../../ui/comments";
+import { useUser } from "../../../hooks/useUsers";
+import { CommentsProvider } from "../../../hooks/useComments";
 
 const UserPage = ({ id }) => {
     // console.log("id", typeof id);
-    // console.log("id", id);
-    const userId = id.toString();
+    console.log("id", id);
+    // const userId = id.toString();
     // console.log("useId", typeof userId);
     // console.log("useId", userId);
 
-    const [page, setPage] = useState();
+    const { getUserById } = useUser();
+    const user = getUserById(id);
+    console.log("user", user);
 
-    useEffect(() => {
-        API.users.getById(userId).then((data) => setPage(data));
-    }, []);
+    // const [page, setPage] = useState();
 
-    if (page) {
-        // console.log("page", page);
+    // useEffect(() => {
+    //     API.users.getById(userId).then((data) => setPage(data));
+    // }, []);
 
+    if (user) {
         return (
             <div className="container">
                 <div className="row gutters-sm">
                     <div className="col-md-4 mb-3">
-                        <UserCard items={page} />
-                        <QualitiesCard qualityItems={page.qualities} />
+                        <UserCard items={user} />
+                        <QualitiesCard qualityItems={user.qualities} />
                         <CompletedMeetingsCard
-                            meetingItems={page.completedMeetings}
+                            meetingItems={user.completedMeetings}
                         />
                     </div>
                     <div className="col-md-8">
-                        <Comments />
+                        <CommentsProvider>
+                            <Comments />
+                        </CommentsProvider>
                     </div>
                 </div>
             </div>
