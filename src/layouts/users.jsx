@@ -2,14 +2,15 @@ import UserPage from "../components/page/userPage";
 import React from "react";
 import UsersListPage from "../components/page/usersListPage";
 import PropTypes from "prop-types";
-import { useParams } from "react-router-dom";
+import { useParams, Redirect } from "react-router-dom";
 import UpDateUserPage from "../components/ui/updateUserPage";
 import UserProvider from "../hooks/useUsers";
+import { useAuth } from "../hooks/useAuth";
 
 const Users = () => {
     const params = useParams();
     // console.log("params", params);
-
+    const { currentUser } = useAuth();
     const { userId, edit } = params;
     // console.log(userId);
 
@@ -18,7 +19,11 @@ const Users = () => {
             <UserProvider>
                 {userId ? (
                     edit ? (
-                        <UpDateUserPage id={userId} />
+                        userId === currentUser._id ? (
+                            <UpDateUserPage id={userId} />
+                        ) : (
+                            <Redirect to={`/users/${currentUser._id}/edit`} />
+                        )
                     ) : (
                         <UserPage id={userId} />
                     )
