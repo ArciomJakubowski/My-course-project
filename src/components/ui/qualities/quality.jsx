@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useQualities } from "../../../hooks/useQuality";
+// import { useQualities } from "../../../hooks/useQuality";
 
-const Quality = ({ _id }) => {
+const Quality = ({ _id, name, color }) => {
     // const quls = useQualities()
     // console.log("quls", quls);
 
-    const { name, color } = useQualities().getQuality(_id);
+    // const { name, color } = useQualities().getQuality(_id);
 
     // console.log("name", name);
     // console.log("color", color);
@@ -20,7 +20,7 @@ const Quality = ({ _id }) => {
 Quality.propTypes = {
     color: PropTypes.string,
     name: PropTypes.string,
-    _id: PropTypes.string
+    _id: PropTypes.string.isRequired
 };
 
 export default Quality;

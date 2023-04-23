@@ -5,17 +5,20 @@ import UserCard from "../../ui/userCard";
 import QualitiesCard from "../../ui/qualitiesCard";
 import CompletedMeetingsCard from "../../ui/completedMeetingsCard";
 import Comments from "../../ui/comments";
-import { useUser } from "../../../hooks/useUsers";
+// import { useUser } from "../../../hooks/useUsers";
 import { CommentsProvider } from "../../../hooks/useComments";
+import { getUserById } from "../../../store/users";
+import { useSelector } from "react-redux";
 
 const UserPage = ({ id }) => {
     // console.log("id", id);
     // const userId = id.toString();
     // console.log("useId", userId);
 
-    const { getUserById } = useUser();
-    const user = getUserById(id);
-    // console.log("user", user);
+    // const { getUserById } = useUser();
+    // const user = getUserById(id);
+    const user = useSelector(getUserById(id));
+    console.log("user", user);
 
     // const [page, setPage] = useState();
 

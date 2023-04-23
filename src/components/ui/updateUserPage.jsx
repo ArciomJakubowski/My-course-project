@@ -7,9 +7,15 @@ import MultiSelectField from "../common/form/multiSelectField";
 import PropTypes from "prop-types";
 import { validator } from "../../util/validator";
 import { useHistory } from "react-router-dom";
-import { useProfessions } from "../../hooks/useProfession";
-import { useQualities } from "../../hooks/useQuality";
+// import { useProfessions } from "../../hooks/useProfession";
+// import { useQualities } from "../../hooks/useQuality";
 import { useAuth } from "../../hooks/useAuth";
+import { getQualities, getQualitiesLoadingStatus } from "../../store/qualities";
+import { useSelector } from "react-redux";
+import {
+    getProfession,
+    getProfessionLoadingStatus
+} from "../../store/profession";
 
 const UpDateUserPage = ({ id }) => {
     const history = useHistory();
@@ -19,15 +25,17 @@ const UpDateUserPage = ({ id }) => {
 
     const { updateDate, currentUser } = useAuth();
 
-    const { professions, isLoading: isLoadingProfessions } = useProfessions();
-
+    // const { professions, isLoading: isLoadingProfessions } = useProfessions();
+    const professions = useSelector(getProfession());
+    const isLoadingProfessions = useSelector(getProfessionLoadingStatus());
     const professionsList = professions.map((professionName) => ({
         value: professionName._id,
         label: professionName.name
     }));
 
-    const { qualities, isLoading: isLoadingQualities } = useQualities();
-
+    // const { qualities, isLoading: isLoadingQualities } = useQualities();
+    const qualities = useSelector(getQualities());
+    const isLoadingQualities = useSelector(getQualitiesLoadingStatus());
     const qualitiesList = qualities.map((q) => ({
         label: q.name,
         value: q._id

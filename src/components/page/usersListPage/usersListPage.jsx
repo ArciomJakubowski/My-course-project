@@ -1,20 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { paginate } from "../../../util/paginate";
 import Pagination from "../../common/pagination";
-import { useUser } from "../../../hooks/useUsers";
+// import { useUser } from "../../../hooks/useUsers";
 import PropTypes from "prop-types";
 // import API from "../../../api";
 import SearchStatus from "../../ui/searchStatus";
 import GroupList from "../../common/groupList";
 import UserTable from "../../ui/usersTable";
 import _ from "lodash";
-import { useProfessions } from "../../../hooks/useProfession";
+// import { useProfessions } from "../../../hooks/useProfession";
 import { useAuth } from "../../../hooks/useAuth";
+import {
+    getProfession,
+    getProfessionLoadingStatus
+} from "../../../store/profession";
+import { useSelector } from "react-redux";
+import { getUsersList } from "../../../store/users";
 
 const UsersListPage = () => {
-    const { users } = useUser();
+    // const { users } = useUser();
+    const users = useSelector(getUsersList());
     const { currentUser } = useAuth();
-    const { isLoading: professionsLoading, professions } = useProfessions();
+    // const { isLoading: professionsLoading, professions } = useProfessions();
+    const professions = useSelector(getProfession());
+    console.log("prof", professions);
+    const professionsLoading = useSelector(getProfessionLoadingStatus());
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedProf, setSelectedProf] = useState();
     const [searchUsers, setSearchUsers] = useState("");

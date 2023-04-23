@@ -6,10 +6,13 @@ import MultiSelectField from "../common/form/multiSelectField";
 import RadioField from "../common/form/radioField";
 import SelectField from "../common/form/selectField";
 import TextField from "../common/form/textField";
-import { useQualities } from "../../hooks/useQuality";
-import { useProfessions } from "../../hooks/useProfession";
+// import { useQualities } from "../../hooks/useQuality";
+// import { useProfessions } from "../../hooks/useProfession";
 import { useAuth } from "../../hooks/useAuth";
 import { useHistory } from "react-router-dom";
+import { getQualities } from "../../store/qualities";
+import { useSelector } from "react-redux";
+import { getProfession } from "../../store/profession";
 
 const RegisterForm = () => {
     // const [email, setEmail] = useState("");
@@ -28,14 +31,16 @@ const RegisterForm = () => {
 
     const { signUp } = useAuth();
 
-    const { qualities } = useQualities();
+    // const { qualities } = useQualities();
+    const qualities = useSelector(getQualities());
 
     const qualitiesList = qualities.map((q) => ({
         label: q.name,
         value: q._id
     }));
 
-    const { professions } = useProfessions();
+    // const { professions } = useProfessions();
+    const professions = useSelector(getProfession());
 
     const professionsList = professions.map((professionName) => ({
         label: professionName.name,

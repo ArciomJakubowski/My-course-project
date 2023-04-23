@@ -2,8 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 // import API from "../../api";
 import { timeStamp } from "../../util/timestamp";
-import { useUser } from "../../hooks/useUsers";
+// import { useUser } from "../../hooks/useUsers";
 import { useAuth } from "../../hooks/useAuth";
+import { useSelector } from "react-redux";
+import { getUserById } from "../../store/users";
 
 const Comment = ({ onRemove, _id: id, userId, created_at: time, content }) => {
     // console.log("comments", comments);
@@ -11,10 +13,12 @@ const Comment = ({ onRemove, _id: id, userId, created_at: time, content }) => {
     // console.log("onRemove", onRemove);
 
     // const [user, setUser] = useState();
-    const { getUserById } = useUser();
+    // const { getUserById } = useUser();
     const { currentUser } = useAuth();
 
-    const user = getUserById(userId);
+    // const user = getUserById(userId);
+    const user = useSelector(getUserById(userId));
+    console.log("user", user);
 
     // const [load, setLoad] = useState(false);
 
