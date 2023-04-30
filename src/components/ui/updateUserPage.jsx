@@ -9,22 +9,24 @@ import { validator } from "../../util/validator";
 import { useHistory } from "react-router-dom";
 // import { useProfessions } from "../../hooks/useProfession";
 // import { useQualities } from "../../hooks/useQuality";
-import { useAuth } from "../../hooks/useAuth";
+// import { useAuth } from "../../hooks/useAuth";
 import { getQualities, getQualitiesLoadingStatus } from "../../store/qualities";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
     getProfession,
     getProfessionLoadingStatus
 } from "../../store/profession";
+import { getCurrentUserData, updateData } from "../../store/users";
 
-const UpDateUserPage = ({ id }) => {
+const UpDateUserPage = () => {
     const history = useHistory();
     const [data, setData] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [errors, setErrors] = useState({});
-
-    const { updateDate, currentUser } = useAuth();
-
+    const dispatch = useDispatch();
+    // const { updateDate, currentUser } = useAuth();
+    // const { updateDate } = useAuth();
+    const currentUser = useSelector(getCurrentUserData());
     // const { professions, isLoading: isLoadingProfessions } = useProfessions();
     const professions = useSelector(getProfession());
     const isLoadingProfessions = useSelector(getProfessionLoadingStatus());
@@ -172,15 +174,16 @@ const UpDateUserPage = ({ id }) => {
         return Object.keys(errors).length === 0;
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         const isValid = validate();
         if (!isValid) return;
-
-        await updateDate({
-            ...data,
-            qualities: data.qualities.map((qual) => qual.value)
-        });
+        dispatch(
+            updateData({
+                ...data,
+                qualities: data.qualities.map((qual) => qual.value)
+            })
+        );
 
         handleOpenUserPage();
 

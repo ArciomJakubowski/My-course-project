@@ -3,18 +3,19 @@ import PropTypes from "prop-types";
 // import API from "../../api";
 import { timeStamp } from "../../util/timestamp";
 // import { useUser } from "../../hooks/useUsers";
-import { useAuth } from "../../hooks/useAuth";
+// import { useAuth } from "../../hooks/useAuth";
 import { useSelector } from "react-redux";
-import { getUserById } from "../../store/users";
+import { getCurrentUserId, getUserById } from "../../store/users";
 
 const Comment = ({ onRemove, _id: id, userId, created_at: time, content }) => {
-    // console.log("comments", comments);
     // console.log("userId", userId);
     // console.log("onRemove", onRemove);
+    console.log("idishnik", id);
 
     // const [user, setUser] = useState();
     // const { getUserById } = useUser();
-    const { currentUser } = useAuth();
+    // const { currentUser } = useAuth();
+    const currentUserId = useSelector(getCurrentUserId());
 
     // const user = getUserById(userId);
     const user = useSelector(getUserById(userId));
@@ -60,7 +61,8 @@ const Comment = ({ onRemove, _id: id, userId, created_at: time, content }) => {
                                             - {timeStamp(time)}
                                         </span>
                                     </p>
-                                    {currentUser._id === userId && (
+                                    {/* {currentUser._id === userId && ( */}
+                                    {currentUserId === userId && (
                                         <button
                                             className="btn btn-sm text-primary d-flex align-items-center"
                                             onClick={() => onRemove(id)}
