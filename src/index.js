@@ -14,9 +14,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <Provider store={store}>
         <Router history={history}>
-            <React.StrictMode>
-                <App />
-            </React.StrictMode>
+            {/* <React.StrictMode> */}
+            <App />
+            {/* </React.StrictMode> */}
         </Router>
     </Provider>
 );

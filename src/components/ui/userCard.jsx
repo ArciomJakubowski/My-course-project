@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 import { getCurrentUserId } from "../../store/users";
 
 const UserCard = ({ items }) => {
-    // console.log("items", items);
     const history = useHistory();
 
     // const { currentUser } = useAuth();

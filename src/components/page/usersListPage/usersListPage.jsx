@@ -24,7 +24,6 @@ const UsersListPage = () => {
     // const { currentUser } = useAuth();
     // const { isLoading: professionsLoading, professions } = useProfessions();
     const professions = useSelector(getProfession());
-    console.log("prof", professions);
     const professionsLoading = useSelector(getProfessionLoadingStatus());
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -35,18 +34,12 @@ const UsersListPage = () => {
     const pageSize = 8;
     // const [users, setUsers] = useState();
 
-    // console.log(users);
-
     // useEffect(() => {
     //     API.users.fetchAll().then((data) => setUsers(data));
     // }, []);
 
-    // console.log("users", users);
-    // console.log("data", data);
-
     const handleDelete = (userId) => {
         // setUsers(users.filter((user) => user._id !== userId));
-        // console.log(userId);
     };
     const handleToggleBookMark = (id) => {
         // setUsers((prevState) =>
@@ -61,7 +54,6 @@ const UsersListPage = () => {
         //     return user;
         // });
         // // setUsers(newArray)
-        // console.log(newArray);
     };
 
     // useEffect(() => {
@@ -73,29 +65,22 @@ const UsersListPage = () => {
     }, [selectedProf, searchUsers]);
 
     const handleProfessionSelect = (item) => {
-        setSearchUsers("");
+        if (searchUsers !== "") setSearchUsers("");
         setSelectedProf(item);
     };
 
-    // console.log("selectedProf", selectedProf);
-
     const handleSearchUsers = ({ target }) => {
-        setSelectedProf();
-        // console.log(e.target.value);
-        // console.log(searchUsers);
+        setSelectedProf(undefined);
         setSearchUsers(target.value);
-        // console.log(typeof target.value);
     };
 
     const handlePageChange = (pageIndex) => {
-        // console.log("page: ", pageIndex);
         setCurrentPage(pageIndex);
     };
     const handleSort = (item) => {
         setSortBy(item);
     };
 
-    // console.log("allUsers", allUsers);
     if (users) {
         // const filteredUsers = selectedProf
 

@@ -19,7 +19,7 @@ const commentsSlice = createSlice({
             // state.lastFetch = Date.now();
             state.isLoading = false;
         },
-        commentsRequestFiled: (state, action) => {
+        commentsRequestFailed: (state, action) => {
             state.error = action.payload;
             state.isLoading = false;
         },
@@ -28,7 +28,7 @@ const commentsSlice = createSlice({
         },
         commentRemoved: (state, action) => {
             state.entities = state.entities.filter(
-                (com) => com._id !== action.payload.id
+                (com) => com._id !== action.payload
             );
         }
     }
@@ -38,7 +38,7 @@ const { reducer: commentsReducer, actions } = commentsSlice;
 const {
     commentsRequested,
     commentsReceved,
-    commentsRequestFiled,
+    commentsRequestFailed,
     commentCreated,
     commentRemoved
 } = actions;
@@ -58,10 +58,9 @@ export const loadComments = (userId) => async (dispatch) => {
     dispatch(commentsRequested());
     try {
         const { content } = await commentService.getComments(userId);
-        console.log("content", content);
         dispatch(commentsReceved(content));
     } catch (error) {
-        dispatch(commentsRequestFiled(error.message));
+        dispatch(commentsRequestFailed(error.message));
     }
 };
 // };
@@ -72,23 +71,21 @@ export const createComment = (payload) => async (dispatch) => {
         const { content } = await commentService.createComment(payload);
         console.log({ content });
         dispatch(commentCreated(content));
-        history.push(`/users/${content._id}`);
     } catch (error) {
-        dispatch(commentsRequestFiled(error.message));
+        dispatch(commentsRequestFailed(error.message));
     }
 };
 
 export const removeComment = (commentId) => async (dispatch) => {
-    dispatch(commentsRequested());
+    // dispatch(commentsRequested());
     try {
-        const { content } = await commentService.commentRemove(commentId);
-        console.log({ content });
+        const { content } = await commentService.removeComment(commentId);
+        console.log(content);
         if (content === null) {
-            dispatch(commentRemoved(content));
-            history.push(`/users/${content._id}`);
+        dispatch(commentRemoved(content));
         }
     } catch (error) {
-        dispatch(commentsRequestFiled(error.message));
+        dispatch(commentsRequestFailed(error.message));
     }
 };
 
@@ -96,12 +93,4 @@ export const getComments = () => (state) => state.comments.entities;
 export const getCommentsLoadingStatus = () => (state) =>
     state.comments.isLoading;
 
-// export const getProfessionById = (professionId) => (state) => {
-//     console.log("state.profession.entities", state.profession.entities);
-//     const items = state.profession.entities;
-//     console.log("items", items);
-//     return items.find((p) => p._id === professionId);
-// };
-
-// console.log("getProfession", getProfession);
 export default commentsReducer;

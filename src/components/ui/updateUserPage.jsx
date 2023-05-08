@@ -27,31 +27,30 @@ const UpDateUserPage = () => {
     // const { updateDate, currentUser } = useAuth();
     // const { updateDate } = useAuth();
     const currentUser = useSelector(getCurrentUserData());
-    // const { professions, isLoading: isLoadingProfessions } = useProfessions();
     const professions = useSelector(getProfession());
     const isLoadingProfessions = useSelector(getProfessionLoadingStatus());
+    const qualities = useSelector(getQualities());
+    const isLoadingQualities = useSelector(getQualitiesLoadingStatus());
+    // const { professions, isLoading: isLoadingProfessions } = useProfessions();
+
     const professionsList = professions.map((professionName) => ({
         value: professionName._id,
         label: professionName.name
     }));
 
     // const { qualities, isLoading: isLoadingQualities } = useQualities();
-    const qualities = useSelector(getQualities());
-    const isLoadingQualities = useSelector(getQualitiesLoadingStatus());
+
     const qualitiesList = qualities.map((q) => ({
         label: q.name,
         value: q._id
     }));
 
     const handleChange = (target) => {
-        console.log(target.value);
         // setEmail(e.target.value);
         setData((prevState) => ({
             ...prevState,
             [target.name]: target.value
         }));
-
-        // console.log(e.target.value);
     };
     // const [professions, setProfessions] = useState([]);
     // const [qualities, setQualities] = useState([]);

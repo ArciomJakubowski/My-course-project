@@ -37,14 +37,11 @@ function isOutDated(date) {
 }
 
 export const loadProfession = () => async (dispatch, getState) => {
-    console.log("getState", getState());
     const { lastFetch } = getState().profession;
-    console.log("lastFetch", lastFetch);
     if (isOutDated(lastFetch)) {
         dispatch(professionRequested());
         try {
             const { content } = await ProfessionService.get();
-            console.log("content", content);
             dispatch(professionReceved(content));
         } catch (error) {
             dispatch(professionRequestFiled(error.message));
@@ -57,11 +54,11 @@ export const getProfessionLoadingStatus = () => (state) =>
     state.profession.isLoading;
 
 export const getProfessionById = (professionId) => (state) => {
-    console.log("state.profession.entities", state.profession.entities);
+    // console.log("state.profession.entities", state.profession.entities);
     const items = state.profession.entities;
-    console.log("items", items);
+    // console.log("items", items);
     return items.find((p) => p._id === professionId);
 };
 
-console.log("getProfession", getProfession);
+// console.log("getProfession", getProfession);
 export default professionReducer;

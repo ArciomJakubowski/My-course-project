@@ -16,8 +16,6 @@ export const useComments = () => {
 
 export const CommentsProvider = ({ children }) => {
     const { userId } = useParams();
-    // console.log("userId", userId);
-
     // const { currentUser } = useAuth();
     const currentUserId = useSelector(getCurrentUserId());
 
@@ -32,7 +30,6 @@ export const CommentsProvider = ({ children }) => {
     }, [userId]);
 
     async function createComment(data) {
-        // console.log(data);
         const comment = {
             ...data,
             _id: nanoid(),
@@ -49,13 +46,11 @@ export const CommentsProvider = ({ children }) => {
         } catch (error) {
             errorCatcher(error);
         }
-        // console.log(comment);
     }
 
     async function getComments() {
         try {
             const { content } = await commentService.getComments(userId);
-            // console.log("content", content);
             setComments(content);
         } catch (error) {
             errorCatcher(error);

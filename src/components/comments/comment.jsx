@@ -8,23 +8,17 @@ import { useSelector } from "react-redux";
 import { getCurrentUserId, getUserById } from "../../store/users";
 
 const Comment = ({ onRemove, _id: id, userId, created_at: time, content }) => {
-    // console.log("userId", userId);
-    // console.log("onRemove", onRemove);
-    console.log("idishnik", id);
-
     // const [user, setUser] = useState();
     // const { getUserById } = useUser();
     // const { currentUser } = useAuth();
+    console.log({ id });
+    console.log({ userId });
     const currentUserId = useSelector(getCurrentUserId());
 
     // const user = getUserById(userId);
     const user = useSelector(getUserById(userId));
-    console.log("user", user);
 
     // const [load, setLoad] = useState(false);
-
-    // console.log("user", user);
-    // console.log("load", load);
 
     // useEffect(() => {
     //     setLoad(true);
@@ -65,7 +59,9 @@ const Comment = ({ onRemove, _id: id, userId, created_at: time, content }) => {
                                     {currentUserId === userId && (
                                         <button
                                             className="btn btn-sm text-primary d-flex align-items-center"
-                                            onClick={() => onRemove(id)}
+                                            onClick={() => {
+                                                return onRemove(id);
+                                            }}
                                         >
                                             <i className="bi bi-x-lg"></i>
                                         </button>

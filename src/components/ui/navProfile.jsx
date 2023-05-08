@@ -8,9 +8,8 @@ const NavProfile = () => {
     // const { currentUser } = useAuth();
 
     const currentUser = useSelector(getCurrentUserData());
-    console.log("currentUser", currentUser);
+    console.log(currentUser);
     const [isOpen, setOpen] = useState(false);
-    console.log("currentUser", currentUser);
     const toggleMenu = () => {
         setOpen((prevState) => !prevState);
     };

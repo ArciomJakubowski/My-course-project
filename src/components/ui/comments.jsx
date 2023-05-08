@@ -19,20 +19,18 @@ import { useParams } from "react-router-dom";
 
 const Comments = () => {
     const { userId } = useParams();
-    console.log("userId", userId);
-
     const dispatch = useDispatch();
+
+    const comments = useSelector(getComments());
+    console.log(comments);
+
+    const isLoading = useSelector(getCommentsLoadingStatus());
 
     useEffect(() => {
         dispatch(loadComments(userId));
     }, [userId]);
 
-    const comments = useSelector(getComments());
-    const isLoading = useSelector(getCommentsLoadingStatus());
-
     // const { userId } = useParams();
-    // console.log("params", params);
-    // console.log(typeof userId);
 
     // const [comments, setComments] = useState([]);
 
@@ -48,9 +46,7 @@ const Comments = () => {
 
     const handleAddComment = (data) => {
         // console.log(API.comments.add({ data }).then({ ...data, comments }));
-        console.log("dataComment", data);
         // createComment([...comments, data]);
-        console.log("createComment", createComment);
         dispatch(
             createComment({
                 ...data,
@@ -67,8 +63,7 @@ const Comments = () => {
 
     const handleRemoveComment = (commentId) => {
         console.log("click");
-        console.log("commentId", commentId);
-        removeComment(commentId);
+        dispatch(removeComment(commentId));
 
         // API.comments.remove(id).then((id) => {
         //     setComments(comments.filter((com) => com._id !== id));

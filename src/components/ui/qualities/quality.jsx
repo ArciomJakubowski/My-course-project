@@ -4,12 +4,7 @@ import PropTypes from "prop-types";
 
 const Quality = ({ _id, name, color }) => {
     // const quls = useQualities()
-    // console.log("quls", quls);
-
     // const { name, color } = useQualities().getQuality(_id);
-
-    // console.log("name", name);
-    // console.log("color", color);
 
     return (
         <span key={_id} className={"badge m-1 bg-" + color}>

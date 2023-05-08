@@ -12,14 +12,11 @@ const SelectField = ({
 }) => {
     const handleChange = ({ target }) => {
         onChange({ name: target.name, value: target.value });
-        // console.log("таргет 1", target);
     };
 
     const getInputClasses = () => {
         return "form-select" + (error ? " is-invalid" : "");
     };
-
-    // console.log(options);
 
     const optionsArray =
         !Array.isArray(options) && typeof options === "object"

@@ -103,15 +103,10 @@ const RegisterForm = () => {
 
     const handleChange = (target) => {
         // setEmail(e.target.value);
-        // console.log("таргет", target);
         setData((prevState) => ({
             ...prevState,
             [target.name]: target.value
         }));
-
-        // console.log(e.target.value);
-        // console.log(target.name);
-        // console.log(target.value);
     };
 
     const validatorConfig = {
@@ -186,8 +181,7 @@ const RegisterForm = () => {
             ...data,
             qualities: data.qualities.map((q) => q.value)
         };
-        // console.log(newData);
-
+        dispatch(signUp(newData));
         // try {
         //     await signUp(newData);
         //     history.push("/");
@@ -195,8 +189,6 @@ const RegisterForm = () => {
         //     setErrors(error);
         //     console.log(error);
         // }
-
-        dispatch(signUp(newData));
 
         // console.log({
         //     ...data,

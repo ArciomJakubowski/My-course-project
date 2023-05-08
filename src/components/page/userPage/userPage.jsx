@@ -11,14 +11,10 @@ import { getUserById } from "../../../store/users";
 import { useSelector } from "react-redux";
 
 const UserPage = ({ id }) => {
-    // console.log("id", id);
-    // const userId = id.toString();
-    // console.log("useId", userId);
-
     // const { getUserById } = useUser();
     // const user = getUserById(id);
     const user = useSelector(getUserById(id));
-    console.log("user", user);
+    console.log("Юзер", user);
 
     // const [page, setPage] = useState();
 

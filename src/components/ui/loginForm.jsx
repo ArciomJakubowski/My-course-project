@@ -9,7 +9,6 @@ import { getAuthErrors, login } from "../../store/users";
 
 const LoginForm = () => {
     // const [email, setEmail] = useState("");
-    // console.log(process.env);
 
     const loginError = useSelector(getAuthErrors());
     const history = useHistory();
@@ -35,8 +34,6 @@ const LoginForm = () => {
             ...prevState,
             [target.name]: target.value
         }));
-        // console.log(e.target.value);
-        // console.log(target.value);
         // setEnterError(null);
     };
 

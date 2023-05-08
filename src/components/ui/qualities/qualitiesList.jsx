@@ -13,7 +13,7 @@ const QualitiesList = ({ qualities }) => {
     // const { isLoading } = useQualities();
     const dispatch = useDispatch();
 
-    console.log(qualities);
+    // console.log(qualities);
 
     const isLoading = useSelector(getQualitiesLoadingStatus());
     const qualitiesList = useSelector(getQualitiesByIds(qualities));

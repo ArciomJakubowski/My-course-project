@@ -11,10 +11,6 @@ const CommentForm = ({ onSubmit }) => {
     // const [users, setUsers] = useState({});
     const [errors, setErrors] = useState({});
 
-    // console.log("data", data);
-    // console.log(users);
-    // console.log(errors);
-
     // useEffect(() => {
     //     API.users.fetchAll().then(setUsers);
     // }, []);
@@ -27,7 +23,7 @@ const CommentForm = ({ onSubmit }) => {
         }));
 
         // console.log(e.target.value);
-        console.log(target.value);
+        // console.log(target.value);
     };
 
     const validatorConfig = {

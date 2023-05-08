@@ -12,11 +12,10 @@ import UsersLoader from "../components/ui/hoc/usersLoader";
 
 const Users = () => {
     const params = useParams();
-    // console.log("params", params);
     // const { currentUser } = useAuth();
     const { userId, edit } = params;
+    // console.log("edit", edit);
     const currentUserId = useSelector(getCurrentUserId());
-    // console.log(userId);
 
     // const dataStatus = useSelector(getDataStatus());
     // const dispatch = useDispatch();
@@ -33,7 +32,7 @@ const Users = () => {
                     edit ? (
                         // userId === currentUser._id ? (
                         userId === currentUserId ? (
-                            <UpDateUserPage id={userId} />
+                            <UpDateUserPage />
                         ) : (
                             <Redirect
                                 // to={`/users/${currentUser._id}/edit`}
