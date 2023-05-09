@@ -6,7 +6,7 @@ import getRandomInt from "../util/getRandomInt";
 import history from "../util/history";
 import { generateAuthError } from "../util/generateAuthError";
 
-const initialState = localStorageService.getAccessToken
+const initialState = localStorageService.getAccessToken()
     ? {
           entities: null,
           isLoading: true,
@@ -108,7 +108,7 @@ export const login =
         dispatch(authRequested());
         try {
             const data = await authService.login({ email, password });
-            dispatch(authRequestSuccess({ useId: data.localId }));
+            dispatch(authRequestSuccess({ userId: data.localId }));
             localStorageService.setTokens(data);
             history.push(redirect);
         } catch (error) {
@@ -196,7 +196,7 @@ export const getUsersList = () => (state) => state.users.entities;
 
 export const getCurrentUserData = () => (state) => {
     // console.log("123", state.users.entities);
-    // console.log("state.users", state.users);
+    console.log("state.users", state.users);
     return state.users.entities
         ? state.users.entities.find((u) => u._id === state.users.auth.userId)
         : null;

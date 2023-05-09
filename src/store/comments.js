@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAction, createSlice } from "@reduxjs/toolkit";
 import commentService from "../services/comment.service";
 // import ProfessionService from "../services/profession.services";
 
@@ -43,6 +43,9 @@ const {
     commentRemoved
 } = actions;
 
+const createCommentRequested = createAction("comments/createCommentRequested");
+const removeCommentRequested = createAction("comments/removeCommentRequested");
+
 // function isOutDated(date) {
 //     if (Date.now() - date > 10 * 60 * 1000) {
 //         return true;
@@ -66,7 +69,7 @@ export const loadComments = (userId) => async (dispatch) => {
 // };
 
 export const createComment = (payload) => async (dispatch) => {
-    dispatch(commentsRequested());
+    dispatch(createCommentRequested());
     try {
         const { content } = await commentService.createComment(payload);
         console.log({ content });
@@ -77,12 +80,12 @@ export const createComment = (payload) => async (dispatch) => {
 };
 
 export const removeComment = (commentId) => async (dispatch) => {
-    // dispatch(commentsRequested());
+    dispatch(removeCommentRequested());
     try {
         const { content } = await commentService.removeComment(commentId);
         console.log(content);
         if (content === null) {
-        dispatch(commentRemoved(content));
+            dispatch(commentRemoved(commentId));
         }
     } catch (error) {
         dispatch(commentsRequestFailed(error.message));

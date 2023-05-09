@@ -114,15 +114,17 @@ const UpDateUserPage = () => {
 
     const getQualitiesById = (qualitiesIds) => {
         const newQualitiesArray = [];
-        for (const qualId of qualitiesIds) {
-            for (const quality of qualities) {
-                if (quality._id === qualId) {
-                    newQualitiesArray.push(quality);
-                    break;
+        if (qualitiesIds) {
+            for (const qualId of qualitiesIds) {
+                for (const quality of qualities) {
+                    if (quality._id === qualId) {
+                        newQualitiesArray.push(quality);
+                        break;
+                    }
                 }
             }
+            return newQualitiesArray;
         }
-        return newQualitiesArray;
     };
 
     useEffect(() => {

@@ -20,7 +20,7 @@ const NavProfile = () => {
             <div className="btn dropdown-toggle d-flex align-items-center">
                 <div className="me-2">{currentUser.name}</div>
                 <img
-                    src={currentUser.image}
+                    src={currentUser?.image}
                     alt=""
                     className="img-responsive rounded-circle"
                     height="40"
